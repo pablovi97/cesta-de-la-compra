@@ -41,6 +41,7 @@ public class FXMLController implements Initializable {
             cp.setCantidad(Integer.parseInt(txCant.getText()));
 
             MainDB.insertarCompra(cp);
+           // MainDB.transaccionActiva();
             actualizarListView();
             lblError.setText("");
             txProducto.setText("");
@@ -70,6 +71,6 @@ public class FXMLController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+     actualizarListView();
     }
 }

@@ -41,7 +41,8 @@ public class MainDB {
         }
 
     }
-      public static List<Compra> obtenerCompras() {
+
+    public static List<Compra> obtenerCompras() {
         //Coge los empleados y los introduce en una Lista
 
         List<Compra> resultado = null;
@@ -62,6 +63,19 @@ public class MainDB {
 
         return resultado;
 
+    }
+
+    public static void transaccionActiva() {
+        EntityManager em = crearEntityManager();
+
+        if (em.getTransaction().isActive()) {
+            System.out.println("IS ACTIVE");
+        } else {
+            System.out.println("NO ACTIVE");
+            em.getTransaction().begin();
+              
+               
+        }
     }
 
     public static void modificarCompra(Compra cp) {
