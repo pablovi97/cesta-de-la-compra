@@ -103,7 +103,7 @@ public class Compra implements Serializable {
 
     @Override
     public String toString() {
-        return "Producto :"+ this.nombreProducto +" Cantidad :" + this.cantidad + " id_compra :" + this.idCompra;
+        return "Producto :"+ this.nombreProducto +"|   Cantidad :" + this.cantidad + "|    id_compra :" + this.idCompra;
     }
     
 }

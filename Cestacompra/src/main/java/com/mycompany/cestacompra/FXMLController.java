@@ -41,8 +41,10 @@ public class FXMLController implements Initializable {
             cp.setCantidad(Integer.parseInt(txCant.getText()));
 
             MainDB.insertarCompra(cp);
-         //   actualizarListView();
-
+            actualizarListView();
+            lblError.setText("");
+            txProducto.setText("");
+            txCant.setText("");
         } catch (NumberFormatException numberFormatException) {
 
             lblError.setText("No se ha podido introducir a la cesta! ");
@@ -51,11 +53,18 @@ public class FXMLController implements Initializable {
     }
 
     public void actualizarListView() {
+        try {
 
-        List<Compra> compra = MainDB.obtenerCompras();
-        ObservableList<Compra> observableList = FXCollections.observableList(compra);
+            List<Compra> compra = MainDB.obtenerCompras();
+            ObservableList<Compra> observableList = FXCollections.observableList(compra);
 
-        listV.setItems(observableList);
+            listV.setItems(observableList);
+        } catch (Exception e) {
+            System.out.println("________________________________________________");
+            System.out.println(e.getMessage());
+
+            System.out.println("_______________________________________________");
+        }
 
     }
 
