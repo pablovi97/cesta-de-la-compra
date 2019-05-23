@@ -37,6 +37,18 @@ public class Clientes implements Serializable {
     @Column(name = "nombreCliente")
     private String nombreCliente;
 
+    @Basic(optional = false)
+    @Column(name = "Contraseña")
+    private String contraseña;
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+
     public Clientes() {
     }
 
@@ -89,5 +101,5 @@ public class Clientes implements Serializable {
     public String toString() {
         return "modelo.Clientes[ idCliente=" + idCliente + " ]";
     }
-    
+
 }
