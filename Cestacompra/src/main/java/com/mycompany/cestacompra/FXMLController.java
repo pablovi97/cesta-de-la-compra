@@ -102,7 +102,7 @@ public class FXMLController implements Initializable {
         Button login = new Button();
         login.setText("LOGIN");
         signin.setText("SIGN IN");
-      //signin.addEventHandler(MouseEvent.MOUSE_CLICKED, evt -> registrarse(evt));
+        signin.addEventHandler(MouseEvent.MOUSE_CLICKED, evt -> registrarse(evt));
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
         Label lbl = new Label();
@@ -124,7 +124,6 @@ public class FXMLController implements Initializable {
         gridpane.add(contraseña, 1, 1);
         gridpane.add(login, 1, 2);
         gridpane.add(signin, 0, 2);
-
 
         return dialog;
     }
@@ -154,7 +153,7 @@ public class FXMLController implements Initializable {
         gridpane.add(lbl2, 0, 1);
         gridpane.add(usuario, 1, 0);
         gridpane.add(contraseña, 1, 1);
-        MainDB.crearCliente(new Clientes(contraseña.getText() ,usuario.getText()));
+        MainDB.crearCliente(new Clientes(contraseña.getText(), usuario.getText()));
 
         return dialog;
 
