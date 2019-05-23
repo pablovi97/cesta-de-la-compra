@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import modelo.Clientes;
 import modelo.Compra;
 import modelo.MainDB;
 
@@ -100,7 +102,7 @@ public class FXMLController implements Initializable {
         Button login = new Button();
         login.setText("LOGIN");
         signin.setText("SIGN IN");
-      
+      //signin.addEventHandler(MouseEvent.MOUSE_CLICKED, evt -> registrarse(evt));
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
         Label lbl = new Label();
@@ -127,7 +129,7 @@ public class FXMLController implements Initializable {
         return dialog;
     }
 
-    public Dialog registrarse(EventHandler evt) {
+    public Dialog registrarse(Event evt) {
 
         Dialog dialog = new Dialog<>();
         dialog.setTitle("SIGN IN");
@@ -152,6 +154,7 @@ public class FXMLController implements Initializable {
         gridpane.add(lbl2, 0, 1);
         gridpane.add(usuario, 1, 0);
         gridpane.add(contraseña, 1, 1);
+        MainDB.crearCliente(new Clientes(contraseña.getText() ,usuario.getText()));
 
         return dialog;
 

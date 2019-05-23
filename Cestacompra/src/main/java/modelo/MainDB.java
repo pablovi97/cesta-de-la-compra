@@ -41,6 +41,20 @@ public class MainDB {
         }
 
     }
+        public static void crearCliente(Clientes cs) {
+        //Insertar Shippers
+        EntityManager em = crearEntityManager();
+
+        EntityTransaction et = em.getTransaction();
+        try {
+            et.begin();
+            em.persist(cs);//para insertar en la base de datos
+            et.commit();
+
+        } catch (Exception e) {
+        }
+
+    }
 
     public static List<Compra> obtenerCompras() {
         //Coge los empleados y los introduce en una Lista

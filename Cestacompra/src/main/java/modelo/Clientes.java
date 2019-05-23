@@ -25,7 +25,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Clientes.findAll", query = "SELECT c FROM Clientes c")
     , @NamedQuery(name = "Clientes.findByIdCliente", query = "SELECT c FROM Clientes c WHERE c.idCliente = :idCliente")
+    , @NamedQuery(name = "Clientes.findBycontraseña", query = "SELECT c FROM Clientes c WHERE c.contraseña = :contraseña")
     , @NamedQuery(name = "Clientes.findByNombreCliente", query = "SELECT c FROM Clientes c WHERE c.nombreCliente = :nombreCliente")})
+
 public class Clientes implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,7 +40,7 @@ public class Clientes implements Serializable {
     private String nombreCliente;
 
     @Basic(optional = false)
-    @Column(name = "Contraseña")
+    @Column(name = "contraseña")
     private String contraseña;
 
     public String getContraseña() {
@@ -58,6 +60,11 @@ public class Clientes implements Serializable {
 
     public Clientes(Integer idCliente, String nombreCliente) {
         this.idCliente = idCliente;
+        this.nombreCliente = nombreCliente;
+    }
+
+    public Clientes(String contr, String nombreCliente) {
+        this.contraseña = contr;
         this.nombreCliente = nombreCliente;
     }
 
