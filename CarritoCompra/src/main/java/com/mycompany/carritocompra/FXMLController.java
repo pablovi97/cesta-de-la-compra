@@ -1,6 +1,7 @@
 package com.mycompany.carritocompra;
 
 import com.mycompany.carritocompra.modelo.Articulo;
+import com.mycompany.carritocompra.modelo.Cliente;
 import com.mycompany.carritocompra.modelo.ManejarDB;
 import com.mycompany.carritocompra.modelo.Pedido;
 import java.net.URL;
@@ -24,7 +25,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
 public class FXMLController implements Initializable {
-    
+
     private Label label;
     @FXML
     private TextField txtId;
@@ -38,7 +39,7 @@ public class FXMLController implements Initializable {
     private ListView<Articulo> listV;
     @FXML
     private Button btnCrearProducto;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Dialog dialog = login();
@@ -46,20 +47,32 @@ public class FXMLController implements Initializable {
         if (result.isPresent()) {
 
         }
+        if (pivote) {
+            dialog1.close();
+            Dialog d = registrarse();
+            Optional<String> result1 = d.showAndWait();
+            if (result1.isPresent()) {
+
+            }
+        }
+        System.out.println(pivote);
         actualizarListView();
     }
+    boolean pivote = false;
+
+    Dialog dialog1;
 
     public Dialog login() {
 
-        Dialog dialog = new Dialog<>();
-        dialog.setTitle("LOGIN");
-        dialog.setHeaderText("Cesta de la compra");
+        dialog1 = new Dialog<>();
+        dialog1.setTitle("LOGIN");
+        dialog1.setHeaderText("Cesta de la compra");
         Button signin = new Button();
         Button login = new Button();
         login.setText("LOGIN");
         signin.setText("SIGN IN");
-      //signin.addEventHandler(MouseEvent.MOUSE_CLICKED, evt -> registrarse(evt));
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        //signin.addEventHandler(MouseEvent.MOUSE_CLICKED, evt -> registrarse(evt));
+        dialog1.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
         Label lbl = new Label();
         lbl.setText("Usuario");
@@ -68,7 +81,7 @@ public class FXMLController implements Initializable {
         TextField usuario = new TextField();
         TextField contraseña = new TextField();
         GridPane gridpane = new GridPane();
-        dialog.getDialogPane().setContent(gridpane);
+        dialog1.getDialogPane().setContent(gridpane);
         ColumnConstraints column1 = new ColumnConstraints();
         column1.setPercentWidth(50);
         ColumnConstraints column2 = new ColumnConstraints();
@@ -81,12 +94,15 @@ public class FXMLController implements Initializable {
         gridpane.add(login, 1, 2);
         gridpane.add(signin, 0, 2);
 
+        if (signin.isPickOnBounds()) {
+            pivote = true;
 
-        return dialog;
+        }
+        return dialog1;
     }
 
-    public Dialog registrarse(Event evt) {
-
+    public Dialog registrarse() {
+        System.out.println("HOLAAAAA");
         Dialog dialog = new Dialog<>();
         dialog.setTitle("SIGN IN");
         dialog.setHeaderText("Cesta de la compra");
@@ -110,14 +126,18 @@ public class FXMLController implements Initializable {
         gridpane.add(lbl2, 0, 1);
         gridpane.add(usuario, 1, 0);
         gridpane.add(contraseña, 1, 1);
-        //ManejarDB.crearCliente(new Cliente(contraseña.getText() ,usuario.getText()));
+        Cliente cl =  new Cliente();
+        
+        
+        cl.setClienteNombre(contraseña.getText());
+        
+                
+        ManejarDB.crearCliente(cl);
 
         return dialog;
 
     }
-   
 
-    
     public void actualizarListView() {
         try {
 
@@ -136,13 +156,13 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void btnAgregarProducto(MouseEvent event) {
-        
+
         Articulo a = new Articulo();
         a.setArticuloNombre(this.txtNombre.getText());
         a.setArticuloPrecio(Integer.parseInt(this.txtPrecio.getText()));
         a.setArticuloCantidad(Integer.parseInt(this.txtCantidad.getText()));
         ManejarDB.insertarArticulo(a);
-        
+
         this.actualizarListView();
     }
 }
